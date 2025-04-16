@@ -1,0 +1,14 @@
+{
+  "fileLocations": [
+    {
+      "URIs": [
+        "https://matias-cost-assets.s3.amazonaws.com/Data/dummy_costs.csv"
+      ]
+    }
+  ],
+  "globalUploadSettings": {
+    "format": "CSV",
+    "delimiter": ",",
+    "containsHeader": true
+  }
+}
