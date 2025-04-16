@@ -1,0 +1,84 @@
+
+AWS Cost Management Framework Documentation ($0 Budget)
+
+---
+
+1. Introduction and Objective  
+This project demonstrates the implementation of an automated system to monitor and alert on AWS costs using only free-tier services (AWS Free Tier) and tools like Terraform, Lambda, SNS, and QuickSight. The goal is to showcase practical skills in cloud cost management, serverless architecture, Infrastructure as Code (IaC), and business intelligence (BI), all without incurring real expenses.  
+
+---
+
+2. Architecture Overview  
+Architecture Diagram 
+Description:  
+- AWS Budgets: Configured with a $1 budget to simulate alerts.  
+- Amazon SNS: Acts as a messaging intermediary between Budgets and Lambda.  
+- Lambda: Processes SNS events and logs activity in CloudWatch.  
+- QuickSight: Visualizes cost data in real time.  
+- Terraform: Automates infrastructure creation (SNS, Lambda, IAM roles).  
+
+---
+
+3. Step-by-Step Implementation  
+
+Day 1: Fundamentals and Manual Configuration  
+1. S3 Bucket Creation  
+   - Name: `matias-cost-assets` (us-east-2).  
+   - Security: ACLs disabled and public access blocked .  
+   - Purpose: Stores artifacts (e.g., Lambda ZIP files).  
+
+2. Alert Setup (Budget + SNS)  
+   - Budget: $1 monthly with alerts at 85% and 100%.  
+   - SNS: Topic `CostoFrameworkAlertSNS` created manually.  
+
+3. Initial Terraform Deployment  
+   - File `main.tf`: References the existing SNS topic.  
+   - Execution: `terraform apply` outputs the SNS ARN (`arn:aws:sns:us-east-2::CostsAlertSNS`) (See Terraform Screenshot).  
+
+4. Manual Lambda Function  
+   - Code: Processes SNS messages and logs to CloudWatch (See Logs Screenshot).  
+   - Trigger: Subscribed to the SNS topic.  
+
+---
+
+Day 2: Automation with Terraform and Visualization  
+1. Infrastructure as Code (Terraform)  
+   - Automated creation of:  
+     - IAM role for Lambda.  
+     - Lambda function linked to the S3 ZIP file.  
+     - SNS-Lambda permissions.  
+     - Validation: Resources created with `-TF` suffix.  
+
+2. QuickSight Dashboard  
+   - Dataset: Simulated data from a dummy CSV.  
+   - Visuals: Basic cost-over-time line graph (See Dashboard Screenshot).  
+
+---
+
+4. Testing and Validation  
+- Lambda Test: SNS message processed successfully (See Logs).  
+- Cost Explorer: Confirmed $0 costs.  
+- Security: S3 ACLs disabled and public access blocked .  
+
+---
+
+5. Conclusions  
+- Technical Success: Functional infrastructure, operational alerts, and data visualization.  
+- Free Tier Compliance: All services used within free-tier limits .  
+- Automation: Terraform manages 80% of resources, reducing manual errors.  
+
+---
+
+6. Key Screenshots  
+1. S3 Bucket: Secure configuration and unique naming.  
+2. Terraform Apply: Successful output with SNS ARN.  
+3. Lambda Logs: Test message processing.  
+4. Architecture Diagram: Clear component flow.  
+
+---
+
+7. Repository Link  
+GitHub: https://github.com/m93ds/AWS-Zero-Costs
+
+---  
+Note: This project adheres to AWS security and cost-optimization best practices, demonstrating skills critical for DevOps, Cloud Engineering, and Data Analytics roles.
